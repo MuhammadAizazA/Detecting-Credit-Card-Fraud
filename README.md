@@ -1,4 +1,4 @@
-# Fraud Detection Model
+# Detecting-Credit-Card-Fraud
 
 This project focuses on fraud detection using a dataset from Kaggle.
 
