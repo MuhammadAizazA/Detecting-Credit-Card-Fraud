@@ -23,14 +23,16 @@ from sklearn.metrics import auc, roc_curve
 from data_utils import prepare_data,label_encode_data,onehot_encode_data,frequency_encode_data,scale_data,balance_data,drop_columns
 
 def load_data(path):
-    dataframe=pd.read_csv(path)
-    return dataframe
+    try:
+        dataframe = pd.read_csv(path)
+        return dataframe
+    except FileNotFoundError:
+        print(f"File not found. Please make sure the file is located in the {path} directory.")
 
 def complete_clean_data(path):
     df=load_data(path)
     # Preprocessing train data using the 'prepare_data' function
     df=prepare_data(df)
-    
     df=label_encode_data(df,['city_pop','category','job','merchant','city','street','state'])
     df=frequency_encode_data(df,['cc_num'])
     df=onehot_encode_data(df,['day_type'])
@@ -137,14 +139,3 @@ if __name__=='__main__':
     print('Report for new unseen Data')
     pridictive_function(X_validation_resampled,y_validation_resampled,trained_pipeline)
     roc_auc = roc_auc_score_function(X_validation_resampled, y_validation_resampled, trained_pipeline)
-
-
-
-
-
-
-
-
-
-
-
